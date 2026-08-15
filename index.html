@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bhakti's Cafe</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <span>☕</span>
+        <div>
+            <h1>Bhakti's Cafe</h1>
+            <p>Food • Drinks • Happiness</p>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <p class="small-title">WELCOME TO</p>
+
+        <h2>Bhakti's Cafe</h2>
+
+        <p>
+            Delicious food, refreshing drinks
+            and unforgettable moments.
+        </p>
+
+        <a href="#menu" class="hero-btn">
+            Explore Menu
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section class="login-section">
+
+    <div class="login-card">
+
+        <h2>Login</h2>
+
+        <p>Choose your account type</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter your name"
+        >
+
+        <select id="role">
+
+            <option value="customer">
+                Customer
+            </option>
+
+            <option value="operator">
+                Cafe Operator
+            </option>
+
+        </select>
+
+        <button onclick="login()">
+            Login
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CUSTOMER ================= -->
+
+<section id="customerPanel" class="dashboard hidden">
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <p>Welcome</p>
+
+            <h2>
+                <span id="customerName"></span> 👋
+            </h2>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-area">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔍 Search food or drinks..."
+            onkeyup="searchMenu()"
+        >
+
+    </div>
+
+
+    <!-- CATEGORY BUTTONS -->
+
+    <div class="categories">
+
+        <button onclick="filterMenu('All')">
+            All
+        </button>
+
+        <button onclick="filterMenu('Veg')">
+            🥗 Veg
+        </button>
+
+        <button onclick="filterMenu('Non-Veg')">
+            🍗 Non-Veg
+        </button>
+
+        <button onclick="filterMenu('Pizza')">
+            🍕 Pizza
+        </button>
+
+        <button onclick="filterMenu('Burger')">
+            🍔 Burger
+        </button>
+
+        <button onclick="filterMenu('Pasta')">
+            🍝 Pasta
+        </button>
+
+        <button onclick="filterMenu('Drinks')">
+            🥤 Drinks
+        </button>
+
+        <button onclick="filterMenu('Dessert')">
+            🍰 Desserts
+        </button>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <div class="section-title">
+
+        <p>OUR MENU</p>
+
+        <h2>Choose Your Favourite</h2>
+
+    </div>
+
+    <div
+        id="menuContainer"
+        class="food-grid">
+    </div>
+
+
+    <!-- CART -->
+
+    <div class="cart-box">
+
+        <div class="section-title">
+
+            <p>YOUR CART</p>
+
+            <h2>🛒 Your Order</h2>
+
+        </div>
+
+        <div id="cartContainer"></div>
+
+        <div class="cart-bottom">
+
+            <h3>
+                Total:
+                ₹<span id="cartTotal">0</span>
+            </h3>
+
+            <button onclick="placeOrder()">
+                Place Order
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOMER ORDERS -->
+
+    <div class="orders-box">
+
+        <div class="section-title">
+
+            <p>ORDER HISTORY</p>
+
+            <h2>📦 My Orders</h2>
+
+        </div>
+
+        <div id="customerOrders"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= OPERATOR ================= -->
+
+<section id="operatorPanel" class="dashboard hidden">
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <p>Administrator</p>
+
+            <h2>
+                👨‍💼 Cafe Operator
+            </h2>
+
+        </div>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <span>🍽️</span>
+
+            <h3 id="totalMenu">
+                0
+            </h3>
+
+            <p>Menu Items</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>📦</span>
+
+            <h3 id="totalOrders">
+                0
+            </h3>
+
+            <p>Total Orders</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>💰</span>
+
+            <h3>
+                ₹<span id="totalSales">
+                    0
+                </span>
+            </h3>
+
+            <p>Total Sales</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD ITEM -->
+
+    <div class="admin-card">
+
+        <div class="section-title">
+
+            <p>CREATE</p>
+
+            <h2>➕ Add Menu Item</h2>
+
+        </div>
+
+        <div class="form-grid">
+
+            <input
+                id="newName"
+                type="text"
+                placeholder="Food name"
+            >
+
+            <input
+                id="newPrice"
+                type="number"
+                placeholder="Price"
+            >
+
+            <select id="newCategory">
+
+                <option value="Veg">
+                    Veg
+                </option>
+
+                <option value="Non-Veg">
+                    Non-Veg
+                </option>
+
+                <option value="Drinks">
+                    Drinks
+                </option>
+
+                <option value="Dessert">
+                    Dessert
+                </option>
+
+            </select>
+
+            <input
+                id="newImage"
+                type="text"
+                placeholder="Image URL"
+            >
+
+        </div>
+
+        <button onclick="addMenuItem()">
+            Add Item
+        </button>
+
+    </div>
+
+
+    <!-- MENU MANAGEMENT -->
+
+    <div class="admin-card">
+
+        <div class="section-title">
+
+            <p>CRUD</p>
+
+            <h2>🍽️ Manage Menu</h2>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="adminMenu"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ALL ORDERS -->
+
+    <div class="admin-card">
+
+        <div class="section-title">
+
+            <p>ORDERS</p>
+
+            <h2>📋 All Customer Orders</h2>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="allOrders"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>☕ Bhakti's Cafe</h2>
+
+    <p>
+        Made with ❤️ for food lovers
+    </p>
+
+    <p>
+        © 2026 Bhakti's Cafe
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
